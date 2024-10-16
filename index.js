@@ -1,7 +1,15 @@
 import express from 'express';
 import { SecretManagerServiceClient } from '@google-cloud/secret-manager';
 import admin from 'firebase-admin';
+import cors from 'cors';
 
+
+const corsOptions = {
+    origin: 'https://frontend-github-deploy-staging-379840034411.us-central1.run.app/', // Replace with your React frontend domain
+    optionsSuccessStatus: 200
+};
+
+app.use(cors(corsOptions));
 
 const app = express();
 const port = 8080;
