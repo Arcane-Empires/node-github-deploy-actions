@@ -7,8 +7,11 @@ import cors from 'cors';
 
 
 const app = express();
+
+
 const corsOptions = {
-    origin: 'frontend-github-deploy-staging-379840034411.us-central1.run.app',
+    methods: ['GET', 'OPTIONS'],
+    origin: 'https://frontend-github-deploy-staging-379840034411.us-central1.run.app',
     optionsSuccessStatus: 200
 };
 
