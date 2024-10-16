@@ -14,6 +14,7 @@ app.use((req, res, next) => {
     );
     next();
 });
+app.use(express.json());
 
 const secretmanagerClient = new SecretManagerServiceClient()
 
