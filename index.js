@@ -7,7 +7,7 @@ const PORT = 8080;
 
 const corsOptions = {
     methods: ['GET', 'OPTIONS'],
-    origin: 'https://frontend-github-deploy-379840034411.us-central1.run.app/',
+    origin: 'https://frontend-github-deploy-379840034411.us-central1.run.app',
     optionsSuccessStatus: 200
 };
 
