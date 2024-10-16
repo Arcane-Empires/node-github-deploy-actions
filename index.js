@@ -1,20 +1,30 @@
 import express from 'express';
-// import FirestoreHandler from './firestore/firestore_handler.js';
-import { initializeApp } from 'firebase/app';
-import { getFirestore, collection, getDocs } from 'firebase/firestore';
+import { SecretManagerServiceClient } from '@google-cloud/secret-manager';
 import admin from 'firebase-admin';
-import serviceAccount from './node-server-from-github-350729a70c3a.json' assert { type: 'json' };
 
 
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount)
+const app = express();
+const port = 8080;
+
+const secretmanagerClient = new SecretManagerServiceClient()
+
+// Construct request
+const request = {
+    name: 'projects/379840034411/secrets/node-server-admin/versions/latest',
+};
+
+await secretmanagerClient.accessSecretVersion(request).then((data) => {
+    const secretData = JSON.parse(Buffer.from(data[0].payload.data, 'utf8').toString());
+    admin.initializeApp({
+        credential: admin.credential.cert(secretData)
+    });
+}).catch((err) => {
+    console.error(err);
 });
 
 const db = admin.firestore();
 
-
 async function getDocument(collectionName, documentId) {
-    
     try {
         const docs = [];
         const docRef = db.collection(collectionName).doc(documentId);
@@ -33,10 +43,7 @@ async function getDocument(collectionName, documentId) {
         return null;
     }
 }
-  
 
-const app = express();
-const port = 8080;
 
 app.get('/', async (req, res) => {
     const collectionData = await getDocument('users', 'jonnysmith696910');
