@@ -4,9 +4,10 @@ import admin from 'firebase-admin';
 import cors from 'cors';
 
 
-app.use(cors());
+
 
 const app = express();
+app.use(cors());
 const port = 8080;
 
 app.use(express.json());
