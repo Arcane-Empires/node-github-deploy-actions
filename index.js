@@ -62,10 +62,10 @@ app.get('/', async (req, res) => {
 app.get('/api/user', async (req, res) => {
     const collectionData = await getDocument('users', 'jonnysmith696910');
     if (collectionData) {
-        return res.status(200).json(collectionData);
+        res.status(200).json(collectionData);
     }
     else{
-        return res.status(404).json({ error: 'User not found' });
+        res.status(404).json({ error: 'User not found' });
     }
 });
 
