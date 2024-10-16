@@ -1,10 +1,21 @@
 import express from 'express';
 import { SecretManagerServiceClient } from '@google-cloud/secret-manager';
 import admin from 'firebase-admin';
+import cors from 'cors';
 
+const PORT = 8080;
+
+const corsOptions = {
+    methods: ['GET', 'OPTIONS'],
+    origin: 'https://frontend-github-deploy-379840034411.us-central1.run.app/',
+    optionsSuccessStatus: 200
+};
 
 const app = express();
-const port = 8080;
+
+app.use(cors(corsOptions));
+
+app.use(express.json());
 
 const secretmanagerClient = new SecretManagerServiceClient()
 
@@ -51,13 +62,13 @@ app.get('/', async (req, res) => {
 app.get('/api/user', async (req, res) => {
     const collectionData = await getDocument('users', 'jonnysmith696910');
     if (collectionData) {
-        return res.status(200).json(collectionData);
+        res.status(200).json(collectionData);
     }
     else{
-        return res.status(404).json({ error: 'User not found' });
+        res.status(404).json({ error: 'User not found' });
     }
 });
 
-app.listen(port, () => {
-    console.log(`Server is running at http://localhost:${port}`);
+app.listen(PORT, () => {
+    console.log(`Server is running at http://localhost:${PORT}`);
 });
