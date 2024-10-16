@@ -123,3 +123,6 @@ dist
 
 # Windows
 Thumbs.db
+
+# Creds
+node-server-from-github-350729a70c3a.json
