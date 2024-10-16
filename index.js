@@ -7,7 +7,12 @@ import cors from 'cors';
 
 
 const app = express();
-app.use(cors());
+const corsOptions = {
+    origin: 'https://frontend-github-deploy-staging-379840034411.us-central1.run.app',
+    optionsSuccessStatus: 200
+};
+
+app.use(cors(corsOptions));
 const port = 8080;
 
 app.use(express.json());
