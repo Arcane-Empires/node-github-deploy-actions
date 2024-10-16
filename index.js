@@ -3,20 +3,19 @@ import { SecretManagerServiceClient } from '@google-cloud/secret-manager';
 import admin from 'firebase-admin';
 import cors from 'cors';
 
+const PORT = 8080;
 
-
+const corsOptions = {
+    methods: ['GET', 'OPTIONS'],
+    origin: 'https://frontend-github-deploy-379840034411.us-central1.run.app/',
+    optionsSuccessStatus: 200
+};
 
 const app = express();
 
 
-const corsOptions = {
-    methods: ['GET', 'OPTIONS'],
-    origin: 'https://frontend-github-deploy-staging-379840034411.us-central1.run.app',
-    optionsSuccessStatus: 200
-};
-
 app.use(cors(corsOptions));
-const port = 8080;
+
 
 app.use(express.json());
 
@@ -72,6 +71,6 @@ app.get('/api/user', async (req, res) => {
     }
 });
 
-app.listen(port, () => {
-    console.log(`Server is running at http://localhost:${port}`);
+app.listen(PORT, () => {
+    console.log(`Server is running at http://localhost:${PORT}`);
 });
